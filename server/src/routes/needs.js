@@ -1,0 +1,12 @@
+const r = require('express').Router();
+const c = require('../controllers/needController');
+const { requireAuth } = require('../middleware/auth');
+r.use(requireAuth);
+r.get('/meta', c.meta);
+r.get('/', c.list);
+r.post('/', c.create);
+r.get('/:id', c.get);
+r.post('/:id/respond', c.respond);
+r.post('/:id/fulfill', c.fulfill);
+r.delete('/:id', c.remove);
+module.exports = r;

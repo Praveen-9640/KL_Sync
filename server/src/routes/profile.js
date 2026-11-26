@@ -1,0 +1,10 @@
+const r = require('express').Router();
+const c = require('../controllers/profileController');
+const { requireAuth } = require('../middleware/auth');
+r.use(requireAuth);
+r.get('/', c.getMe);
+r.put('/', c.updateMe);
+r.put('/theme', c.setTheme);
+r.get('/dashboard', c.dashboard);
+r.get('/user/:id', c.getUser);
+module.exports = r;

@@ -1,0 +1,17 @@
+const r = require('express').Router();
+const c = require('../controllers/adminController');
+const { requireAuth, requireAdmin } = require('../middleware/auth');
+r.use(requireAuth, requireAdmin);
+r.get('/stats', c.stats);
+r.post('/flats', c.createFlat);
+r.put('/flats/:id', c.updateFlat);
+r.post('/flats/:flatId/rooms', c.createRoom);
+r.put('/rooms/:id', c.updateRoom);
+r.get('/allocations', c.listAllocations);
+r.post('/allocations/:id', c.decideAllocation);
+r.get('/users', c.users);
+r.get('/listings', c.listings);
+r.delete('/listings/:id', c.removeListing);
+r.get('/reports', c.reports);
+r.post('/reports/:id', c.resolveReport);
+module.exports = r;

@@ -1,0 +1,12 @@
+const r = require('express').Router();
+const c = require('../controllers/roomController');
+const { requireAuth } = require('../middleware/auth');
+r.use(requireAuth);
+r.get('/flats', c.listFlats);
+r.get('/flats/:id', c.getFlat);
+r.get('/my/allocations', c.myAllocations);
+r.delete('/allocations/:id', c.cancelMyAllocation);
+r.get('/', c.listRooms);
+r.get('/:id', c.getRoom);
+r.post('/:id/request', c.requestRoom);
+module.exports = r;

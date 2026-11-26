@@ -1,0 +1,14 @@
+const r = require('express').Router();
+const c = require('../controllers/marketController');
+const upload = require('../middleware/upload');
+const { requireAuth } = require('../middleware/auth');
+r.use(requireAuth);
+r.get('/meta', c.meta);
+r.get('/', c.list);
+r.post('/', upload, c.create);
+r.get('/:id', c.get);
+r.put('/:id', upload, c.update);
+r.delete('/:id', c.remove);
+r.post('/:id/sold', c.markSold);
+r.post('/:id/interest', c.interest);
+module.exports = r;

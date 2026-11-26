@@ -1,0 +1,15 @@
+const r = require('express').Router();
+const c = require('../controllers/projectController');
+const { requireAuth } = require('../middleware/auth');
+r.use(requireAuth);
+r.get('/meta', c.meta);
+r.get('/', c.list);
+r.post('/', c.create);
+r.get('/:id', c.get);
+r.put('/:id', c.update);
+r.delete('/:id', c.remove);
+r.post('/:id/status', c.setStatus);
+r.post('/:id/interest', c.express);
+r.delete('/:id/interest', c.withdraw);
+r.post('/:id/interests/:interestId', c.decide);
+module.exports = r;

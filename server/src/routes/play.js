@@ -1,0 +1,11 @@
+const r = require('express').Router();
+const c = require('../controllers/playController');
+const { requireAuth } = require('../middleware/auth');
+r.use(requireAuth);
+r.get('/', c.list);
+r.post('/', c.create);
+r.get('/:id', c.get);
+r.post('/:id/join', c.join);
+r.post('/:id/leave', c.leave);
+r.post('/:id/cancel', c.cancel);
+module.exports = r;

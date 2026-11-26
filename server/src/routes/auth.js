@@ -1,0 +1,10 @@
+const r = require('express').Router();
+const c = require('../controllers/authController');
+const { requireAuth } = require('../middleware/auth');
+const { otpSendLimiter, otpVerifyLimiter } = require('../middleware/rateLimit');
+r.post('/send-otp', otpSendLimiter, c.sendOtp);
+r.post('/verify-otp', otpVerifyLimiter, c.verifyOtp);
+r.post('/register', otpVerifyLimiter, c.register);
+r.get('/me', requireAuth, c.me);
+r.post('/logout', requireAuth, c.logout);
+module.exports = r;
