@@ -15,4 +15,10 @@ const findUserByIdentifier = async (channel, identifier) => {
   const { rows } = await query(`SELECT ${SELF_COLS} FROM users WHERE ${col}=$1`, [identifier]);
   return rows[0] || null;
 };
-module.exports = { signSession, signRegistration, readRegistration, findUserByIdentifier };
+
+const findUserByEmail = async (email) => {
+  const normalized = email.toLowerCase().trim();
+  const { rows } = await query(`SELECT id, full_name, email, password_hash, role FROM users WHERE email=$1`, [normalized]);
+  return rows[0] || null;
+};
+module.exports = { signSession, signRegistration, readRegistration, findUserByIdentifier, findUserByEmail };
