@@ -6,7 +6,7 @@ import NotificationBell from '../components/NotificationBell.jsx';
 
 const NAV = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
-  { to: '/events', label: 'Campus Events', icon: CalendarDays },
+  
   { to: '/rooms', label: 'Room Selection', icon: BedDouble },
   { to: '/play', label: 'Peer to Play', icon: Gamepad2 },
   { to: '/market', label: 'Things Exchange', icon: Store },
