@@ -2,7 +2,7 @@
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   full_name VARCHAR(120) NOT NULL,
-  student_id VARCHAR(40) NOT NULL UNIQUE,
+  student_id VARCHAR(40) UNIQUE,
   email VARCHAR(190) UNIQUE,
   phone VARCHAR(20) UNIQUE,
   college VARCHAR(150),
@@ -18,10 +18,24 @@ CREATE TABLE IF NOT EXISTS users (
   theme VARCHAR(20) NOT NULL DEFAULT 'classic' CHECK (theme IN ('classic','decent','simple','normal')),
   show_email BOOLEAN NOT NULL DEFAULT FALSE,
   show_phone BOOLEAN NOT NULL DEFAULT FALSE,
-  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
   CHECK (email IS NOT NULL OR phone IS NOT NULL)
 );
+
+-- Add password_hash column if it doesn't exist (preserves existing users without deleting data)
+DO $$
+BEGIN
+  IF NOT EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'users' AND column_name = 'password_hash') THEN
+    ALTER TABLE users ADD COLUMN password_hash VARCHAR(255);
+  END IF;
+END$$;
+
+-- Make student_id optional: drop NOT NULL constraint if it exists (safe to run multiple times)
+DO $$
+BEGIN
+  IF EXISTS (SELECT 1 FROM information_schema.columns WHERE table_name = 'users' AND column_name = 'student_id' AND is_nullable = 'NO') THEN
+    ALTER TABLE users ALTER COLUMN student_id DROP NOT NULL;
+  END IF;
+END$$;
 
 CREATE TABLE IF NOT EXISTS otp_verifications (
   id SERIAL PRIMARY KEY,
