@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, BedDouble, Gamepad2, Store, HandHelping, Users, User, Settings, LogOut, Menu, Search, ShieldCheck, X } from 'lucide-react';
+import { LayoutDashboard, BedDouble, Gamepad2, Store, HandHelping, Users, User, Settings, LogOut, Menu, Search, ShieldCheck, X, CalendarDays } from 'lucide-react';
 import { useAuth } from '../context/AuthContext.jsx';
 import NotificationBell from '../components/NotificationBell.jsx';
 
 const NAV = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
+  { to: '/events', label: 'Campus Events', icon: CalendarDays },
   { to: '/rooms', label: 'Room Selection', icon: BedDouble },
   { to: '/play', label: 'Peer to Play', icon: Gamepad2 },
   { to: '/market', label: 'Things Exchange', icon: Store },
   { to: '/needs', label: 'Need / Lend', icon: HandHelping },
+  { to: '/events', label: 'Campus Events', icon: CalendarDays },
   { to: '/projects', label: 'Project Partners', icon: Users },
   { to: '/profile', label: 'Profile', icon: User },
   { to: '/settings', label: 'Settings', icon: Settings },
